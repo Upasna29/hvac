@@ -5,7 +5,7 @@
 SFE_TSL2561 light;
 
 boolean gain = 0;     // Gain setting, 0 = X1, 1 = X16;
-unsigned int ms = 10000;
+unsigned int ms = 1000;
 unsigned char time = 2;
 
 int tempSensePin = A0; //Arduino pin for temperature sensor input
