@@ -2,10 +2,12 @@ import serial
 import json
 import requests
 import time
+import uuid
+import os
+from env import environment
 
-ser = serial.Serial('/dev/tty.usbmodem1411', baudrate = 9600)
-# firebase_url = 'https://homesensor-c98fb.firebaseio.com/'
-firebase_url = 'https://hvac-8e1c5.firebaseio.com/'
+ser = serial.Serial(environment["SERIAL_PORT"], baudrate = 9600)
+firebase_url = environment["DATABASE_URL"]
 fixed_interval = 10
 
 while 1:
@@ -15,9 +17,9 @@ while 1:
     lux = float(lux)
     print 'temp: ', temp
     print 'lux: ', lux
-    location = 'room-1'
+    location = str(uuid.uuid4())
     data = {'temperature':temp, 'luminosity': lux}
-    result = requests.post(firebase_url + '/' + location + '/temperature.json', data=json.dumps(data))
+    result = requests.post(firebase_url + '/' + location + '.json', data=json.dumps(data))
 
     print 'Record inserted. Result Code = ' + str(result.status_code) + ',' + result.text
     time.sleep(fixed_interval)
