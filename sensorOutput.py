@@ -2,7 +2,6 @@ from env import environment
 from firebase import firebase
 from threading import Thread, Lock
 import serial
-import json
 import time
 
 ser = serial.Serial(environment["SERIAL_PORT"], baudrate = 9600)
@@ -33,8 +32,8 @@ def update_db():
                 lux = float(lux)
                 print 'temp: ', temp
                 print 'lux: ', lux
-                location = '/room-1'
-                data = {'temperature':temp, 'luminosity': lux}
+                location = '/rooms/room-1'
+                record = {'temperature':temp, 'luminosity': lux}
 
                 try:
                     response = firebase.get(location, None)
@@ -42,7 +41,7 @@ def update_db():
                         key, value = response.popitem()
                         firebase.delete(location, key)
                     
-                    result = firebase.post(location, data)
+                    result = firebase.post(location, record)
                     print result                
                 except Exception as e:
                     print e
