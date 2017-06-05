@@ -7,7 +7,7 @@ import time
 ser = serial.Serial(environment["SERIAL_PORT"], baudrate = 9600)
 firebase_url = environment["DATABASE_URL"]
 firebase = firebase.FirebaseApplication(firebase_url, None)
-fixed_interval = 10
+fixed_interval = 4
 mutex = Lock()
 data = ""
 
@@ -30,8 +30,8 @@ def update_db():
                 temp, lux = data.split()
                 temp = float(temp)
                 lux = float(lux)
-                print 'temp: ', temp
-                print 'lux: ', lux
+                print 'temp:', temp
+                print 'lux:', lux
                 location = '/rooms/room-1'
                 record = {'temperature':temp, 'luminosity': lux}
 

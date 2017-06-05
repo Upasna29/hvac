@@ -1,0 +1,4 @@
+python_firebase==1.2
+python_dotenv==0.6.4
+dotenv==0.0.5
+pyserial==3.3
